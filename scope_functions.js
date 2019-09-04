@@ -4,7 +4,7 @@
 // Basically, these functions do the same: execute a block of code on an object. What's different is how this object becomes available inside the block and what is the result of the whole expression.
 // ref: https://kotlinlang.org/docs/reference/scope-functions.html
 // Here's a typical usage of a scope function for JavaScript:
-
+// these functions only support non-null object
 Object.prototype.let = function (callback) {
     return callback.apply(this, [this])
 }
