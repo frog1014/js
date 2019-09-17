@@ -13,20 +13,27 @@
 
 // return what you return in callback
 Object.prototype.let = function (callback) {
-    return callback.apply(this, [toBooleanValue(this)])
+    return callback.apply(this, [getPrimitiveVal(this)])
 }
 
 
 // apply is preserved from JS
 // return this
 Object.prototype.applyy = function (callback) {
-    callback.apply(this, [toBooleanValue(this)])
+    callback.apply(this, [getPrimitiveVal(this)])
     return this
 }
 
 // a transformer for getting the primitive value of a Boolean object
-function toBooleanValue(obj) {
-    return obj instanceof Boolean ? obj.valueOf() : obj
+function getPrimitiveVal(obj) {
+    if (
+        obj instanceof Boolean ||
+        obj instanceof Number ||
+        obj instanceof String
+    )
+        return obj.valueOf()
+    else
+        return obj
 }
 
 
