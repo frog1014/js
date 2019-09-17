@@ -196,7 +196,17 @@ var player = ([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0)
 
 player.stop();
 
-// but no need to do this, we will do them all in the scope function
+// but no need to do this,
+// we will do them all in the scope function
+([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0) * 88
+    .let(it => new Player().applyy(_ => {
+        _.play(it)
+        _.stop()
+    }));
+
+
+
+
 // demo chain
 
 // *************************************************************************
@@ -263,3 +273,12 @@ var d = c.toFixed()
 var e = new Player
 // console.log('play')
 e.play(d)
+
+
+// https://kotlinlang.org/docs/reference/scope-functions.html
+// ****************************************************************************************
+// Here is a short guide for choosing scope functions depending on the intended purpose:
+
+// Executing a lambda on non-null objects: let
+// Introducing an expression as a variable in local scope: let
+// Object configuration: apply(applyy here)
