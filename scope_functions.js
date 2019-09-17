@@ -24,7 +24,7 @@ Object.prototype.applyy = function (callback) {
     return this
 }
 
-// a transformer for getting the primitive value of a Boolean object
+// a transformer for getting the primitive value
 function getPrimitiveVal(obj) {
     if (
         obj instanceof Boolean ||
