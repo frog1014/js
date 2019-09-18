@@ -13,27 +13,26 @@
 
 // return what you return in callback
 Object.prototype.let = function (callback) {
-    return callback.apply(this, [getPrimitiveVal(this)])
+    return callback.apply(this, [filterPrimitive(this)])
 }
 
 
 // apply is preserved from JS
 // return this
 Object.prototype.applyy = function (callback) {
-    callback.apply(this, [getPrimitiveVal(this)])
+    callback.apply(this, [filterPrimitive(this)])
     return this
 }
 
 // a transformer for getting the primitive value
-function getPrimitiveVal(obj) {
-    if (
-        obj instanceof Boolean ||
-        obj instanceof Number ||
-        obj instanceof String
-    )
-        return obj.valueOf()
-    else
-        return obj
+function filterPrimitive(obj) {
+    return (
+            obj instanceof Boolean ||
+            obj instanceof Number ||
+            obj instanceof String
+        ) ?
+        obj.valueOf() :
+        obj
 }
 
 
@@ -47,9 +46,9 @@ if (typeof window !== 'undefined') {
     body.setAttribute('data-tip', "popup_splash_prevent_close_tab_toolip")
 
     // after
-    document.querySelector('body').applyy(_ => {
-        _.innerHTML = "popup_splash_prevent_close_tab".toLowerCase()
-        _.setAttribute('data-tip', "popup_splash_prevent_close_tab_toolip")
+    document.querySelector('body').applyy(f => {
+        f.innerHTML = "popup_splash_prevent_close_tab".toLowerCase()
+        f.setAttribute('data-tip', "popup_splash_prevent_close_tab_toolip")
     });
 }
 
@@ -132,9 +131,9 @@ new Player().let(player => {
 new Player().let(player => {
     player.play(777)
     player.stop()
-    let trashCan = new TrashCan().applyy(_ => {
-        _.recycle(player)
-        _.pick(player)
+    let trashCan = new TrashCan().applyy(f => {
+        f.recycle(player)
+        f.pick(player)
     })
     player.stop()
     trashCan.clear()
@@ -154,19 +153,19 @@ player.stop()
 trashCan.clear()
 
 // after
-// return _ in applyy()
-// _ or player or whatever you want to naming
+// return f in applyy()
+// f or player or whatever you want to naming
 
 // player is the instance of Player
-var player = new Player().applyy(_ => {
-    _.play(8)
-    _.stop()
+var player = new Player().applyy(f => {
+    f.play(8)
+    f.stop()
     // no need call return
 })
 
-var trashCan = new TrashCan().applyy(_ => {
-    _.recycle(player);
-    _.pick(player);
+var trashCan = new TrashCan().applyy(f => {
+    f.recycle(player);
+    f.pick(player);
 });
 player.stop()
 trashCan.clear()
@@ -187,9 +186,9 @@ player.stop();
 ([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0).let(it => it * 88)
     .let(it =>
         // it = 44 * 88
-        new Player().applyy(_ => {
-            _.play(it)
-            _.stop()
+        new Player().applyy(f => {
+            f.play(it)
+            f.stop()
         })
     );
 
@@ -197,8 +196,8 @@ player.stop();
 // return mix let and applyy
 var player = ([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0)
     .let(it => it * 88)
-    .let(it => new Player().applyy(_ => {
-        _.play(it)
+    .let(it => new Player().applyy(f => {
+        f.play(it)
     }));
 
 player.stop();
@@ -206,9 +205,9 @@ player.stop();
 // but no need to do this,
 // we will do them all in the scope function
 ([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0) * 88
-    .let(it => new Player().applyy(_ => {
-        _.play(it)
-        _.stop()
+    .let(it => new Player().applyy(f => {
+        f.play(it)
+        f.stop()
     }));
 
 
@@ -249,13 +248,13 @@ player.stop();
     }).let(it => {
         return new Player
     })
-    .applyy(_ => {
+    .applyy(f => {
 
         // this is window in arrow fn
         console.log(this)
 
         // console.log('play')
-        _.play(999)
+        f.play(999)
     })
 
 // before
@@ -286,6 +285,5 @@ e.play(d)
 // ****************************************************************************************
 // Here is a short guide for choosing scope functions depending on the intended purpose:
 
-// Executing a lambda on non-null objects: let
 // Introducing an expression as a variable in local scope: let
 // Object configuration: apply(applyy here)
