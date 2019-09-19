@@ -38,7 +38,7 @@ function filterPrimitive(obj) {
 
 // ******************************** example below *******************************************************
 
-// *************************************** run in browser***********************************************
+// *************************************** run @browser***********************************************
 if (typeof window !== 'undefined') {
     // before
     var body = document.querySelector('body');
@@ -52,8 +52,7 @@ if (typeof window !== 'undefined') {
     });
 }
 
-
-// **************************************can run by Node.js********************************************
+// **************************************can run @Node.js********************************************
 
 // do on a nullable object
 // no works
@@ -62,7 +61,8 @@ try {
         // throw a exception cause of "[3, 2, 3, 44, 23, 423, 4].find(e => e == 1000)" is undefined
     })
 } catch (e) {
-    console.error(e)
+    // reach here
+    // console.error(e)
 }
 
 // works
@@ -204,11 +204,11 @@ player.stop();
 
 // but no need to do this,
 // we will do them all in the scope function
-([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0) * 88
-    .let(it => new Player().applyy(f => {
-        f.play(it)
-        f.stop()
-    }));
+(([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0) * 88)
+.let(it => new Player().applyy(f => {
+    f.play(it)
+    f.stop()
+}));
 
 
 
@@ -225,33 +225,31 @@ player.stop();
     value: 20
 }].let(it => {
 
-        console.log(it[1].value * 2)
+        console.log('it[1].value * 2', it[1].value * 2)
         return it.map((v, i) => i * 10)
 
     }).let(it => {
 
         // [0, 10]
-        console.log(it)
+        console.log('[0, 10]', it)
         return 3
     }).applyy(function (_) {
 
         // Number(3)
-        console.log(this)
+        console.log('Number(3)', this)
 
     }).let(it => {
 
         // Number(3)
-        console.log(it)
+        console.log('Number(3)', it)
 
         // "3"
         return it.toFixed()
-    }).let(it => {
-        return new Player
-    })
+    }).let(_ => new Player)
     .applyy(f => {
 
-        // this is window in arrow fn
-        console.log(this)
+        // "this" is window in arrow fn
+        console.log('this is window in arrow fn', this)
 
         // console.log('play')
         f.play(999)
@@ -272,9 +270,9 @@ var a = [{
 console.log(a[1].value * 2)
 
 var b = a.map((v, i) => i * 10)
-console.log(b)
+console.log('b', b)
 var c = 3
-console.log(c)
+console.log('c', c)
 var d = c.toFixed()
 var e = new Player
 // console.log('play')
