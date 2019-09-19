@@ -1,3 +1,5 @@
+'use strict';
+
 // Scope Functions for JavaScript
 
 // The Kotlin standard library contains several functions whose sole purpose is to execute a block of code within the context of an object. When you call such a function on an object with a lambda expression provided, it forms a temporary scope. In this scope, you can access the object without its name. Such functions are called scope functions. There are five of them: let, run, with, apply, and also.
@@ -8,38 +10,32 @@
 // Here're some typical usages of a scope function for JavaScript:
 
 
-'use strict';
-// the 2 extensions only support non-null object
-
-// return what you return in callback
-Object.prototype.let = function (callback) {
-    return callback.apply(this, [filterPrimitive(this)])
-}
-
-
-// apply is preserved from JS
-// return this
-Object.prototype.applyy = function (callback) {
-    callback.apply(this, [filterPrimitive(this)])
-    return this
-}
-
-// a transformer for getting the primitive value
-function filterPrimitive(obj) {
-    return (
-            obj instanceof Boolean ||
-            obj instanceof Number ||
-            obj instanceof String
-        ) ?
-        obj.valueOf() :
-        obj
-}
-
-
-// ******************************** example below *******************************************************
-
-// *************************************** run @browser***********************************************
+// ***************************************run @browser***********************************************
 if (typeof window !== 'undefined') {
+    Object.prototype.let = function (callback) {
+        return callback.apply(this, [filterPrimitive(this)])
+    }
+
+
+    // apply is preserved from JS
+    // return this
+    Object.prototype.applyy = function (callback) {
+        callback.apply(this, [filterPrimitive(this)])
+        return this
+    }
+
+    // a transformer for getting the primitive value
+    function filterPrimitive(obj) {
+        return (
+                obj instanceof Boolean ||
+                obj instanceof Number ||
+                obj instanceof String
+            ) ?
+            obj.valueOf() :
+            obj
+    }
+
+
     // before
     var body = document.querySelector('body');
     body.innerHTML = "popup_splash_prevent_close_tab".toLowerCase()
@@ -50,6 +46,9 @@ if (typeof window !== 'undefined') {
         f.innerHTML = "popup_splash_prevent_close_tab".toLowerCase()
         f.setAttribute('data-tip', "popup_splash_prevent_close_tab_toolip")
     });
+} else {
+    // **************************************run @Node.js********************************************
+    require('./scope_functions')
 }
 
 // **************************************can run @Node.js********************************************
