@@ -45,16 +45,16 @@ var TrashCan = classes.TrashCan
         f.play(999)
     });
 
-    [{
-        id: 'foo1',
-        value: 10
-    }, {
-        id: 'foo2',
-        value: 20
-    }].applyy(it => console.log('it[1].value * 2', it[1].value * 2))
-        .let(it => it.map((v, i) => i * 10))
-        .applyy(console.log)
-        .let(() => 3)
-        .applyy(console.log)
-        .let(it => it.toFixed())
-        .let(_ => new Player().applyy(f => f.play(_)))
+[{
+    id: 'foo1',
+    value: 10
+}, {
+    id: 'foo2',
+    value: 20
+}].applyy(it => console.log('it[1].value * 2', it[1].value * 2))
+    .let(it => it.map((v, i) => i * 10))
+    .applyy(console.log)
+    .let(() => 3)
+    .applyy(console.log)
+    .let(it => it.toFixed())
+    .let(_ => new Player().applyy(f => f.play(_)))
