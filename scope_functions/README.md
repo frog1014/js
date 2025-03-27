@@ -9,4 +9,4 @@ more details for official tutorial, ref: https://kotlinlang.org/docs/reference/s
 Here is a short guide for choosing scope functions depending on the intended purpose:
 
 - Introducing an expression as a variable in local scope: let
-- Object configuration: apply(applyy here)
+- Object configuration: also
