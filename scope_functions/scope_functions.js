@@ -14,7 +14,7 @@ Object.prototype.let = function (callback) {
 
 // apply is preserved from JS
 // return this
-Object.prototype.applyy = function (callback) {
+Object.prototype.also = function (callback) {
     callback.apply(this, [filterPrimitive(this)])
     return this
 }
@@ -33,4 +33,4 @@ function filterPrimitive(obj) {
 // Here is a short guide for choosing scope functions depending on the intended purpose:
 
 // Introducing an expression as a variable in local scope: let
-// Object configuration: apply(applyy here)
+// Object configuration: also
