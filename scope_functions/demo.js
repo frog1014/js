@@ -19,7 +19,7 @@ if (typeof window !== 'undefined') {
 
     // apply is preserved from JS
     // return this
-    Object.prototype.applyy = function (callback) {
+    Object.prototype.also = function (callback) {
         callback.apply(this, [filterPrimitive(this)])
         return this
     }
@@ -42,7 +42,7 @@ if (typeof window !== 'undefined') {
     body.setAttribute('data-tip', "popup_splash_prevent_close_tab_toolip")
 
     // after
-    document.querySelector('body').applyy(f => {
+    document.querySelector('body').also(f => {
         f.innerHTML = "popup_splash_prevent_close_tab".toLowerCase()
         f.setAttribute('data-tip', "popup_splash_prevent_close_tab_toolip")
     });
@@ -130,7 +130,7 @@ new Player().let(player => {
 new Player().let(player => {
     player.play(777)
     player.stop()
-    let trashCan = new TrashCan().applyy(f => {
+    let trashCan = new TrashCan().also(f => {
         f.recycle(player)
         f.pick(player)
     })
@@ -152,17 +152,17 @@ player.stop()
 trashCan.clear()
 
 // after
-// return f in applyy()
+// return f in also()
 // f or player or whatever you want to naming
 
 // player is the instance of Player
-var player = new Player().applyy(f => {
+var player = new Player().also(f => {
     f.play(8)
     f.stop()
     // no need call return
 })
 
-var trashCan = new TrashCan().applyy(f => {
+var trashCan = new TrashCan().also(f => {
     f.recycle(player);
     f.pick(player);
 });
@@ -185,17 +185,17 @@ player.stop();
 ([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0).let(it => it * 88)
     .let(it =>
         // it = 44 * 88
-        new Player().applyy(f => {
+        new Player().also(f => {
             f.play(it)
             f.stop()
         })
     );
 
 // or
-// return mix let and applyy
+// return mix let and also
 var player = ([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0)
     .let(it => it * 88)
-    .let(it => new Player().applyy(f => {
+    .let(it => new Player().also(f => {
         f.play(it)
     }));
 
@@ -204,7 +204,7 @@ player.stop();
 // but no need to do this,
 // we will do them all in the scope function
 (([3, 2, 3, 44, 23, 423, 4].find(e => e == 44) || 0) * 88)
-.let(it => new Player().applyy(f => {
+.let(it => new Player().also(f => {
     f.play(it)
     f.stop()
 }));
@@ -232,7 +232,7 @@ player.stop();
         // [0, 10]
         console.log('[0, 10]', it)
         return 3
-    }).applyy(function (_) {
+    }).also(function (_) {
 
         // Number(3)
         console.log('Number(3)', this)
@@ -245,7 +245,7 @@ player.stop();
         // "3"
         return it.toFixed()
     }).let(_ => new Player)
-    .applyy(f => {
+    .also(f => {
 
         // "this" is window in arrow fn
         console.log('this is window in arrow fn', this)
@@ -283,4 +283,4 @@ e.play(d)
 // Here is a short guide for choosing scope functions depending on the intended purpose:
 
 // Introducing an expression as a variable in local scope: let
-// Object configuration: apply(applyy here)
+// Object configuration: also
